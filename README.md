@@ -105,7 +105,7 @@ gradlew.bat bootRun
 Alternatively, after building the project, you can run the generated JAR file directly:
 
 ```bash
-java -jar build/libs/weatherapp-0.0.1-SNAPSHOT.jar
+java -jar build/libs/kotlin-weather-app-0.0.1-SNAPSHOT.jar
 ```
 
 *Note: The JAR is located in the build/libs directory after compilation.*
@@ -134,3 +134,4 @@ Run the tests with:
 
 ```bash
 ./gradlew test
+```
