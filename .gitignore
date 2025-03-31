@@ -22,7 +22,9 @@ out/
 *.properties
 !src/main/resources/application.properties
 !src/test/resources/application.properties
+!gradle/wrapper/gradle-wrapper.properties
 
 # Compiled output
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.war
