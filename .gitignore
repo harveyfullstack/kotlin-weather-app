@@ -1,0 +1,28 @@
+# Gradle
+.gradle
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# macOS
+.DS_Store
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Secrets
+*.properties
+!src/main/resources/application.properties
+!src/test/resources/application.properties
+
+# Compiled output
+*.jar
+*.war
