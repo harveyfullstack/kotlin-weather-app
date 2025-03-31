@@ -66,16 +66,29 @@ class WeatherServiceImpl(
     }
 
     private fun transformResponse(apiResponse: WeatherApiResponse): WeatherResponse {
-        // Find the current day period (first daytime period)
-        val currentDayPeriod =
+        // Try to find the current day's daytime period
+        val today = java.time.LocalDate.now()
+        val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+        var currentDayPeriod =
             apiResponse.properties.periods
-                .firstOrNull { it.isDaytime }
-                ?: throw IllegalStateException("No daytime period found in the forecast")
+                .firstOrNull {
+                    it.isDaytime && java.time.LocalDate.parse(it.startTime, formatter) == today
+                }
+
+        // If today's daytime period isn't found, fall back to the first available daytime period
+        if (currentDayPeriod == null) {
+            log.warn("Today's daytime forecast not found in API response. Falling back to the first available daytime period.")
+            currentDayPeriod =
+                apiResponse.properties.periods
+                    .firstOrNull { it.isDaytime }
+                    ?: throw IllegalStateException("No daytime period found in the forecast at all.")
+        }
 
         log.info("Transforming weather data for period: {}", currentDayPeriod.name)
 
         // Extract day name from the period
-        val dayName = extractDayName(currentDayPeriod.name, currentDayPeriod.startTime)
+        // Use the start time of the found period to extract the day name reliably
+        val dayName = extractDayName(currentDayPeriod.startTime)
 
         // Convert temperature from Fahrenheit to Celsius
         val tempHighCelsius = TemperatureConverter.fahrenheitToCelsius(currentDayPeriod.temperature)
@@ -99,21 +112,9 @@ class WeatherServiceImpl(
         return WeatherResponse(daily = listOf(dailyForecast))
     }
 
-    private fun extractDayName(
-        periodName: String,
-        startTime: String,
-    ): String {
-        // If the period name already contains a day name (e.g., "Monday"), use it
-        val dayNames = DayOfWeek.values().map { it.getDisplayName(TextStyle.FULL, Locale.ENGLISH) }
-
-        for (dayName in dayNames) {
-            if (periodName.contains(dayName, ignoreCase = true)) {
-                return dayName
-            }
-        }
-
-        // Otherwise, extract the day name from the start time
-        val dateTime = LocalDateTime.parse(startTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    private fun extractDayName(startTime: String): String {
+        val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+        val dateTime = LocalDateTime.parse(startTime, formatter)
         return dateTime.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
     }
 }
