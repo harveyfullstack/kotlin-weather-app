@@ -24,6 +24,12 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    // Add Netty DNS resolver for macOS conditionally
+    val osName = System.getProperty("os.name")
+    if (osName != null && osName.lowercase().contains("mac")) {
+        implementation("io.netty:netty-resolver-dns-native-macos:4.1.107.Final:osx-x86_64")
+        implementation("io.netty:netty-resolver-dns-native-macos:4.1.107.Final:osx-aarch_64")
+    }
     
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
