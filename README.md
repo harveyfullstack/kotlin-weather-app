@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a reactive REST service implemented in Kotlin Springboot that fetches weather data from the weather.gov API and transforms it according to specified requirements. The application demonstrates the use of Spring WebFlux, reactive programming with Mono and Flux, and Kotlin best practices.
+This project is a reactive REST service implemented in Kotlin Springboot that fetches weather data from the weather.gov API and transforms it according to specified requirements. The application uses Spring WebFlux, reactive programming with Mono and Flux, and follows Kotlin conventions.
 
 ## Requirements
 
@@ -44,32 +44,32 @@ com.example.weatherapp
     └── TemperatureConverter.kt (Utility for temperature conversion)
 ```
 
-## Key Features
+## Technical Features
 
 - **Reactive Programming**: Uses Spring WebFlux with Mono and Flux for non-blocking I/O
-- **Clean Architecture**: Follows a layered architecture with clear separation of concerns
-- **Comprehensive Testing**: Includes unit tests, controller tests, and integration tests
-- **Robust Error Handling**: Implements comprehensive reactive error handling
-- **Externalized Configuration**: Uses application.properties for configuration
-- **Comprehensive Logging**: Implements proper logging throughout the application
+- **Layered Architecture**: Follows a clear separation of concerns
+- **Testing**: Includes unit tests, controller tests, and integration tests
+- **Error Handling**: Implements reactive error handling strategies
+- **Configuration**: Uses application.properties for configuration
+- **Logging**: Implements logging throughout the application
 
-## Implementation Highlights
+## Implementation Details
 
-The implementation includes several key features that demonstrate senior-level engineering practices:
+The implementation includes:
 
-1. **Explicit Reactive Error Handling**: Comprehensive error handling in the reactive chain
-2. **Configuration Management**: Externalized API URLs and paths to application.properties
-3. **Logging**: Proper logging throughout the application
-4. **Enhanced Exception Handling**: Custom exception classes and controller exception handlers
-5. **Clean Model Organization**: Separated API and response models
-6. **Thorough Testing**: Testing of both success and error paths for all components
+1. **Reactive Error Handling**: Error handling in the reactive chain
+2. **Configuration Management**: Externalized API URLs and paths
+3. **Logging**: Appropriate logging for operations and errors
+4. **Exception Handling**: Custom exception classes and handlers
+5. **Model Organization**: Separate API and response models
+6. **Testing**: Tests cover both success and error paths
 
 ## Technologies Used
 
-- Kotlin 1.9.22
-- Spring Boot 3.2.3
+- Kotlin 2.1.20
+- Spring Boot 3.2.8
 - Spring WebFlux
-- Gradle
+- Gradle (using Wrapper 8.11)
 - JUnit 5
 - MockWebServer for testing
 
@@ -124,11 +124,11 @@ http://localhost:8080/weather
 
 ## Testing
 
-The application includes comprehensive tests:
+The application includes tests:
 
 - Unit tests for individual components
-- Controller tests using WebTestClient (including error paths)
-- Integration tests with MockWebServer (including error scenarios)
+- Controller tests using WebTestClient
+- Integration tests with MockWebServer
 
 Run the tests with:
 
